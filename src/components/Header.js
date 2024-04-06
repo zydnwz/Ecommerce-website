@@ -1,7 +1,15 @@
 import React from "react";
-import { Container, Navbar, Nav } from "react-bootstrap";
+import { useState } from "react";
+import { Container, Navbar, Nav, Button } from "react-bootstrap";
+import Cart from "./cart/Cart";
 
 const Header = () => {
+  const [showCart, setShowCart] = useState(false);
+
+  const showCartHandler = ()=>{
+    setShowCart(!showCart)
+  }
+
   return (
     <header>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -16,7 +24,9 @@ const Header = () => {
             </Nav>
           </Navbar.Collapse>
         </Container>
+        <Button onClick={showCartHandler}>Cart</Button>
       </Navbar>
+      {showCart && <Cart showCartHandler={showCartHandler}></Cart>}
     </header>
   );
 };

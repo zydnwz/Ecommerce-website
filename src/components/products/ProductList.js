@@ -30,25 +30,27 @@ const ProductList = () => {
   ];
 
   return (
-    <Container>
-      <h1 className="text-center p-3">Products</h1>
-      <Row className="justify-content-center">
-        {productsArr.map((product, index) => (
-          <Col md={4} key={index}>
-            <Card className="mb-4" style={{ width: "18rem" }}>
-              <Card.Title className="text-center pt-3">
-                {product.title}
-              </Card.Title>
-              <Card.Body>
-                <Card.Img variant="top" src={product.imageUrl} />
-                <Card.Text className="pt-3">${product.price}</Card.Text>
-                <Button variant="primary">Add to Cart</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    <>
+      <Container>
+        <h1 className="text-center p-3">Products</h1>
+        <Row className="justify-content-center">
+          {productsArr.map((product, index) => (
+            <Col className="md-4">
+              <Card className="mb-4" key={index} style={{ width: "18rem" }}>
+                <Card.Title className="text-center pt-3">
+                  {product.title}
+                </Card.Title>
+                <Card.Body>
+                  <Card.Img variant="top" src={product.imageUrl} />
+                  <Card.Text className="pt-3">${product.price}</Card.Text>
+                  <Button variant="primary">Add to Cart</Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </>
   );
 };
 
