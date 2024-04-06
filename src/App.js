@@ -1,30 +1,22 @@
-import { useContext } from "react";
-import { Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
-import UserProfile from "./components/Profile/UserProfile";
-import AuthPage from "./pages/AuthPage";
-import HomePage from "./pages/HomePage";
+import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
-import AuthContext, { AuthContextProvider } from "./store/auth-context";
+import Header from "./components/Header/Header";
+import Footer from "./components/layout/Footer";
+import CartProvider from "./components/Store/CartProvider";
+import Routers from "./components/routers/Routers";
+import { AuthContextProvider } from "./components/Store/AuthContext";
 
 function App() {
-  const authCtx = useContext(AuthContext);
-
   return (
-    <AuthContextProvider> 
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            {!authCtx.isLoggedIn && <Route path="/auth" element={<AuthPage />} />}
-            {authCtx.isLoggedIn && (
-              <Route path="/profile" element={<UserProfile />} />
-            )}
-            <Route path="*" element={<HomePage />} />
-          </Routes>
-        </Layout>
-      </Router>
-    </AuthContextProvider>
+    <Router>
+      <CartProvider>
+        <AuthContextProvider>
+          <Header></Header>
+          <Routers></Routers>
+          <Footer></Footer>
+        </AuthContextProvider>
+      </CartProvider>
+    </Router>
   );
 }
 
