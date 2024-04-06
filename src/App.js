@@ -1,14 +1,15 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "./App.css";
 import Header from "./components/Header";
+import CartProvider from "./components/Store/CartProvider";
 import ProductList from "./components/products/ProductList";
 
 function App() {
   return (
-    <>
-      <Header />
-      <ProductList />
-    </>
+    <CartProvider>
+      <Header></Header>
+      <ProductList></ProductList>
+    </CartProvider>
   );
 }
 
