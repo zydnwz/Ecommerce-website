@@ -20,34 +20,44 @@ const AuthForm = () => {
     const enteredPassword = passwordInputRef.current.value;
 
     setIsLoading(true);
+
+    let url;
     if (isLogin) {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCK6yR8Zt1NYrzC4fKJkF6P8rHqFyKUbYI";
     } else {
-      fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCK6yR8Zt1NYrzC4fKJkF6P8rHqFyKUbYI",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPassword,
-            returnSecureToken: true,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then((res) => {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCK6yR8Zt1NYrzC4fKJkF6P8rHqFyKUbYI";
+    }
+
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        email: enteredEmail,
+        password: enteredPassword,
+        returnSecureToken: true,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
         setIsLoading(false);
         if (res.ok) {
-          alert("Account Created Successfully");
+          return res.json();
         } else {
           return res.json().then((data) => {
-            let errorMessage = "EMAIL_EXISTS!";
-
-            alert(errorMessage);
+            let errorMessage = "AUTHENTICATION FAILED!";
+            throw new Error(errorMessage);
           });
         }
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        alert(err);
       });
-    }
   };
 
   return (
