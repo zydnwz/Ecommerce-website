@@ -1,19 +1,20 @@
-import React from "react";
-import "./App.css";
-import { BrowserRouter as Router } from "react-router-dom";
-import Header from "./components/Header/Header";
-import Footer from "./components/layout/Footer";
-import CartProvider from "./components/Store/CartProvider";
-import Routers from "./components/routers/Routers";
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+import UserProfile from './components/Profile/UserProfile';
+import AuthPage from './pages/AuthPage';
+import HomePage from './pages/HomePage';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   return (
     <Router>
-      <CartProvider>
-        <Header></Header>
-        <Routers></Routers>
-        <Footer></Footer>
-      </CartProvider>
+      <Layout>
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/auth' element={<AuthPage />} />
+          <Route path='/profile' element={<UserProfile />} />
+        </Routes>
+      </Layout>
     </Router>
   );
 }
