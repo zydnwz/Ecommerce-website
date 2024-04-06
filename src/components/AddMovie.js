@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-
 import classes from "./AddMovie.module.css";
 
 function AddMovie(props) {
@@ -9,8 +8,6 @@ function AddMovie(props) {
 
   function submitHandler(event) {
     event.preventDefault();
-
-    // couldadd validation here...
 
     const movie = {
       title: titleRef.current.value,
