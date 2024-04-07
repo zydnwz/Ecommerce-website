@@ -9,6 +9,10 @@ import "./Header.css";
 const Header = () => {
   const [showCart, setShowCart] = useState(false);
 
+  const logoutHandler = () => {
+    authCtx.logout();
+  };
+
   const showCartHandler = () => {
     setShowCart(!showCart);
   };
@@ -16,7 +20,6 @@ const Header = () => {
   const cartCtx = useContext(CartContext);
   const authCtx = useContext(AuthContext);
 
-  //calculating total quantity in cart
   let totalAmount = 0;
   cartCtx.items.map((item) => (totalAmount += item.quantity));
 
@@ -26,21 +29,27 @@ const Header = () => {
         <div className="links">
           <Link to="/">Home</Link>
         </div>
-        {authCtx.isLoggedIn && (
-          <div className="links">
-            <Link to="/store">Store</Link>
-          </div>
-        )}
+        <div className="links">
+          <Link to="/store">Store</Link>
+        </div>
         <div className="links">
           <Link to="/about">About</Link>
         </div>
-        <div className="links">
-          <Link to="/login">Login</Link>
-        </div>
+        {!authCtx.isLoggedIn && (
+          <div className="links">
+            <Link to="/login">Login</Link>
+          </div>
+        )}
         <div className="links">
           <Link to="/contact-us">Contact Us</Link>
         </div>
-
+        {authCtx.isLoggedIn && (
+          <div className="links">
+            <Link to="/" onClick={logoutHandler}>
+              Logout
+            </Link>
+          </div>
+        )}
         <Button className="cart-holder" onClick={showCartHandler}>
           Cart ({totalAmount})
         </Button>
