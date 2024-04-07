@@ -20,8 +20,9 @@ const Header = () => {
   const cartCtx = useContext(CartContext);
   const authCtx = useContext(AuthContext);
 
+  //calculating total quantity in cart
   let totalAmount = 0;
-  cartCtx.items.map((item) => (totalAmount += item.quantity));
+  cartCtx.items.map((item) => (totalAmount += item.items.quantity));
 
   return (
     <div className="navbar">
@@ -50,9 +51,11 @@ const Header = () => {
             </Link>
           </div>
         )}
-        <Button className="cart-holder" onClick={showCartHandler}>
-          Cart ({totalAmount})
-        </Button>
+        {authCtx.isLoggedIn && (
+          <Button className="cart-holder" onClick={showCartHandler}>
+            Cart ({totalAmount})
+          </Button>
+        )}
 
         {showCart && <Cart showCartHandler={showCartHandler}></Cart>}
       </header>
